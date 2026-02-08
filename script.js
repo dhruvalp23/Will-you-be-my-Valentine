@@ -1,64 +1,88 @@
-// =====================
-// 🔐 PASSWORD CONFIG
-// =====================
-const SITE_PASSWORD = "SHEEN"; // CHANGE THIS
+// ======= SETTINGS (edit these) =======
+const SITE_PASSWORD = "SHEEN";  // change this
+const QUESTION = "Will you be my Valentine?";
+const FROM = "Dhruval";                 // or "" to hide
 
-const lockScreen = document.getElementById("lock-screen");
-const siteContent = document.getElementById("site-content");
-const passwordInput = document.getElementById("passwordInput");
-const unlockBtn = document.getElementById("unlockBtn");
-const errorMsg = document.getElementById("errorMsg");
+// ======= PASSWORD GATE =======
+const lock = document.getElementById("lock");
+const app = document.getElementById("app");
+const pw = document.getElementById("pw");
+const unlock = document.getElementById("unlock");
+const err = document.getElementById("err");
 
-// Unlock logic
-function unlockSite() {
-  if (passwordInput.value === SITE_PASSWORD) {
-    lockScreen.style.display = "none";
-    siteContent.classList.remove("hidden");
-    sessionStorage.setItem("unlocked", "true");
+function showApp() {
+  lock.classList.add("hidden");
+  app.classList.remove("hidden");
+}
+
+function tryUnlock() {
+  if ((pw.value || "").trim() === SITE_PASSWORD) {
+    sessionStorage.setItem("unlocked", "1");
+    showApp();
   } else {
-    errorMsg.textContent = "Wrong password 💔";
-    passwordInput.value = "";
+    err.textContent = "Wrong password 💔";
+    pw.value = "";
+    pw.focus();
   }
 }
 
-unlockBtn.addEventListener("click", unlockSite);
-passwordInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") unlockSite();
+unlock.addEventListener("pointerdown", tryUnlock);
+pw.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") tryUnlock();
 });
 
-// Persist unlock on refresh
-if (sessionStorage.getItem("unlocked") === "true") {
-  lockScreen.style.display = "none";
-  siteContent.classList.remove("hidden");
-}
+if (sessionStorage.getItem("unlocked") === "1") showApp();
 
-// =====================
-// 💖 BUTTON INTERACTION
-// =====================
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
+// ======= PERSONALIZE TEXT =======
+document.getElementById("question").textContent = QUESTION;
+document.getElementById("from").textContent = FROM ? `— from ${FROM}` : "";
+
+// ======= INTERACTION (phone friendly) =======
+const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
 
 let noCount = 0;
+const noLines = ["No 😭", "Are you sure?", "Please 🥺", "Don’t do this 💔", "Come on 😭"];
 
 noBtn.addEventListener("pointerdown", () => {
-  noCount++;
-  yesBtn.style.transform = `scale(${1 + noCount * 0.15})`;
-  noBtn.textContent = ["No 😭", "Are you sure?", "Please 🥺", "Don’t do this 💔"][noCount % 4];
+  noCount += 1;
+
+  // Grow "Yes" gradually (smooth + capped)
+  const scale = Math.min(1 + noCount * 0.14, 2.2);
+  yesBtn.style.transform = `scale(${scale})`;
+
+  noBtn.textContent = noLines[noCount % noLines.length];
+
+  // Optional: move the No button a bit after a few taps
+  if (noCount >= 3) {
+    const dx = (Math.random() * 120) - 60;
+    const dy = (Math.random() * 80) - 40;
+    noBtn.style.transform = `translate(${dx}px, ${dy}px)`;
+  }
 });
 
 yesBtn.addEventListener("pointerdown", () => {
   document.body.innerHTML = `
     <div style="
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      height:100vh;
-      background:linear-gradient(135deg,#ffdee9,#b5fffc);
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:24px;
       text-align:center;
-      font-size:32px;
-      padding:20px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg,#ffdee9,#b5fffc);
     ">
-      💖 YAY 💖<br><br>You made my day
+      <div style="
+        background: rgba(255,255,255,.9);
+        border-radius: 22px;
+        padding: 26px;
+        box-shadow: 0 22px 55px rgba(0,0,0,.18);
+        width: min(520px, 92vw);
+      ">
+        <div style="font-size:44px; margin-bottom:10px;">💖 YAY 💖</div>
+        <div style="font-size:22px;">You made my day.</div>
+      </div>
     </div>
   `;
 });
+

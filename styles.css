@@ -1,127 +1,155 @@
-/* RESET */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+:root{
+  --bg1:#ffdee9;
+  --bg2:#b5fffc;
+  --ink:#111;
+  --muted:#4a4a4a;
+  --card:rgba(255,255,255,.88);
+  --shadow:0 22px 55px rgba(0,0,0,.18);
+  --pink:#ff5f9e;
+  --border:rgba(0,0,0,.10);
 }
 
-/* BACKGROUND */
-body {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #ffdee9, #b5fffc);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--ink);
+
+  /* Visible background: gradient + subtle hearts */
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255,255,255,.55), transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(255,255,255,.45), transparent 45%),
+    radial-gradient(circle at 35% 85%, rgba(255,255,255,.40), transparent 45%),
+    linear-gradient(135deg,var(--bg1),var(--bg2));
+  display:grid;
+  place-items:center;
+  padding:24px;
 }
 
-/* 🔐 LOCK SCREEN */
-#lock-screen {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, #ffdee9, #b5fffc);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
+/* little floating “heart” dots */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.35;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,95,158,.35) 0 2px, transparent 3px),
+    radial-gradient(circle at 75% 40%, rgba(255,95,158,.25) 0 2px, transparent 3px),
+    radial-gradient(circle at 55% 75%, rgba(255,95,158,.30) 0 2px, transparent 3px),
+    radial-gradient(circle at 30% 65%, rgba(255,95,158,.22) 0 2px, transparent 3px);
+  background-size: 360px 360px;
+  filter: blur(.2px);
 }
 
-.lock-card {
-  background: white;
-  padding: 28px;
-  border-radius: 18px;
-  width: 90%;
-  max-width: 360px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+/* Shared components */
+.hidden{ display:none; }
+
+.panel, .card{
+  width:min(520px, 92vw);
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:var(--shadow);
+  padding:22px;
+  backdrop-filter: blur(10px);
 }
 
-.lock-card h1 {
-  margin-bottom: 6px;
+h1{
+  margin:0 0 10px;
+  line-height:1.05;
+  font-size: clamp(28px, 5vw, 44px);
+  letter-spacing:-.02em;
 }
 
-.lock-card p {
-  color: #555;
-  margin-bottom: 14px;
+p{ margin:0; color:var(--muted); }
+
+.btn{
+  border:none;
+  border-radius:16px;
+  padding:14px 18px;
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+  min-height:48px; /* phone-friendly */
+  touch-action: manipulation;
+  user-select:none;
+  transition: transform .12s ease, filter .12s ease;
+}
+.btn:active{ transform: scale(.98); }
+
+.primary{
+  background: var(--pink);
+  color:white;
+  box-shadow: 0 10px 22px rgba(255,95,158,.30);
+}
+.primary:hover{ filter: brightness(.97); }
+
+.ghost{
+  background: rgba(0,0,0,.06);
+  color: #222;
+}
+.ghost:hover{ filter: brightness(.98); }
+
+.lock{
+  position:fixed;
+  inset:0;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  z-index:10;
 }
 
-.lock-card input {
-  width: 100%;
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  margin-bottom: 12px;
+.field{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap:10px;
+  margin-top:14px;
 }
 
-.lock-card button {
-  width: 100%;
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 12px;
-  border: none;
-  background: #ff5f9e;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
+input{
+  width:100%;
+  padding:14px 14px;
+  border-radius:16px;
+  border:1px solid var(--border);
+  font-size:16px;
+  outline:none;
+  background: rgba(255,255,255,.9);
+}
+input:focus{ border-color: rgba(255,95,158,.55); }
+
+.err{ margin-top:10px; color:#c00; font-weight:700; min-height:22px; }
+.hint{ margin-top:6px; font-size:13px; opacity:.9; }
+
+.app{
+  width:100%;
+  display:grid;
+  place-items:center;
 }
 
-#errorMsg {
-  margin-top: 8px;
-  color: red;
-  font-size: 14px;
+.badge{
+  width:52px;
+  height:52px;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  background: rgba(255,95,158,.16);
+  border: 1px solid rgba(255,95,158,.25);
+  margin-bottom:12px;
+  font-size:26px;
 }
 
-/* 💖 MAIN CARD */
-.hidden {
-  display: none;
+.from{ margin-top:6px; font-size:16px; }
+.actions{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  margin-top:18px;
+  flex-wrap:wrap;
 }
-
-.card {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-  width: 90%;
-  max-width: 420px;
-}
-
-.card h1 {
-  font-size: 28px;
-  margin-bottom: 10px;
-}
-
-.card p {
-  margin-bottom: 20px;
-  color: #555;
-}
-
-/* BUTTONS */
-.buttons {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-}
-
-button {
-  padding: 14px 18px;
-  font-size: 18px;
-  border-radius: 14px;
-  border: none;
-  cursor: pointer;
-  min-width: 110px;
-}
-
-#yesBtn {
-  background: #ff5f9e;
-  color: white;
-}
-
-#noBtn {
-  background: #ddd;
-}
-
-button:active {
-  transform: scale(0.96);
+.micro{
+  margin-top:14px;
+  font-size:13px;
+  opacity:.85;
 }

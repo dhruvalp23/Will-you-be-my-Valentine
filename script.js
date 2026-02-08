@@ -1,5 +1,5 @@
 // ===== PASSWORD CONFIG =====
-const SITE_PASSWORD = "valentine2026"; // 🔐 change this
+const SITE_PASSWORD = "SHEEN"; // 🔐 change this
 
 const lockScreen = document.getElementById("lock-screen");
 const siteContent = document.getElementById("site-content");

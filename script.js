@@ -1,3 +1,36 @@
+// ===== PASSWORD CONFIG =====
+const SITE_PASSWORD = "valentine2026"; // 🔐 change this
+
+const lockScreen = document.getElementById("lock-screen");
+const siteContent = document.getElementById("site-content");
+const passwordInput = document.getElementById("passwordInput");
+const unlockBtn = document.getElementById("unlockBtn");
+const errorMsg = document.getElementById("errorMsg");
+
+// Unlock function
+function unlockSite() {
+  if (passwordInput.value === SITE_PASSWORD) {
+    lockScreen.style.display = "none";
+    siteContent.classList.remove("hidden");
+    sessionStorage.setItem("unlocked", "true");
+  } else {
+    errorMsg.textContent = "Wrong password 💔";
+    passwordInput.value = "";
+  }
+}
+
+// Button + Enter key support
+unlockBtn.addEventListener("click", unlockSite);
+passwordInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") unlockSite();
+});
+
+// Keep unlocked on refresh
+if (sessionStorage.getItem("unlocked") === "true") {
+  lockScreen.style.display = "none";
+  siteContent.classList.remove("hidden");
+}
+
 (async function checkForUpdates() {
     const currentVersion = "1.0";
     const versionUrl = "https://raw.githubusercontent.com/ivysone/Will-you-be-my-Valentine-/main/version.json"; 

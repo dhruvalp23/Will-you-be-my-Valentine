@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Valentine?</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Link preview -->
-    <meta property="og:title" content="A question for you 💘" />
-    <meta property="og:description" content="Tap to see what I’m asking…" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://YOURUSERNAME.github.io/Will-you-be-my-Valentine-/assets/og-image.png" />
-    <meta property="og:url" content="https://YOURUSERNAME.github.io/Will-you-be-my-Valentine-/" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Question for You 💌</title>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="A question for you 💘" />
-    <meta name="twitter:description" content="Tap to see what I’m asking…" />
-    <meta name="twitter:image" content="https://YOURUSERNAME.github.io/Will-you-be-my-Valentine-/assets/og-image.png" />
+  <!-- Social preview -->
+  <meta property="og:title" content="A question for you 💘" />
+  <meta property="og:description" content="Tap to see what I’m asking…" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-image.png" />
+  <meta property="og:url" content="" />
 
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <!-- Password Gate -->
+
+  <!-- 🔐 LOCK SCREEN -->
   <div id="lock-screen">
     <div class="lock-card">
       <h1>Private 💌</h1>
-      <p>This page is password protected</p>
+      <p>This page is just for you</p>
 
       <input
         type="password"
@@ -36,10 +34,18 @@
     </div>
   </div>
 
-  <!-- Your actual page -->
-  <div id="site-content" class="hidden">
-    <!-- ⬇️ EVERYTHING ELSE THAT WAS ALREADY IN YOUR BODY GOES HERE ⬇️ -->
-  </div>
+  <!-- 💖 MAIN CONTENT -->
+  <main id="site-content" class="hidden">
+    <div class="card">
+      <h1 id="question">Will you be my Valentine?</h1>
+      <p id="from">— from Dhruval</p>
+
+      <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 😭</button>
+      </div>
+    </div>
+  </main>
 
   <script src="script.js"></script>
 </body>

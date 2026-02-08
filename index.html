@@ -3,51 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>💌 A Question for You</title>
+  <title>Private 💌</title>
 
-  <!-- Share preview (optional image) -->
-  <meta property="og:title" content="A question for you 💘" />
-  <meta property="og:description" content="Tap to see what I’m asking…" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/og-image.png" />
-
-  <!-- Cache-bust so GitHub Pages updates immediately -->
-  <link rel="stylesheet" href="./style.css?v=99">
-<script defer src="./script.js?v=99"></script>
-
+  <link rel="stylesheet" href="./style.css?v=101" />
+  <script defer src="./script.js?v=101"></script>
 </head>
 
 <body>
-  <!-- 🔐 Lock Screen -->
+  <!-- LOCK SCREEN (blocks everything) -->
   <div id="lock" class="lock">
     <div class="panel">
       <h1>Private 💌</h1>
       <p>Enter the password to continue</p>
 
-      <div class="field">
-        <input id="pw" type="password" inputmode="text" placeholder="Password" autocomplete="off" />
-        <button id="unlock" class="btn primary">Unlock</button>
+      <div class="row">
+        <input
+          id="pw"
+          type="password"
+          placeholder="Password"
+          autocomplete="off"
+          autocapitalize="none"
+          autocorrect="off"
+          spellcheck="false"
+        />
+        <button id="unlock" type="button" class="btn primary">Unlock</button>
       </div>
 
       <p id="err" class="err" aria-live="polite"></p>
-      <p class="hint">Tip: share the password separately.</p>
     </div>
   </div>
 
-  <!-- 💖 Main Site -->
+  <!-- MAIN CONTENT (hidden until unlocked) -->
   <main id="app" class="app hidden">
-    <section class="card">
-      <div class="badge">💘</div>
-      <h1 id="question">Will you be my Valentine?</h1>
-      <p id="from" class="from">— from Dhruval</p>
+    <div class="card">
+      <h1>Will you be my Valentine?</h1>
+      <p class="sub">— from Dhruval</p>
 
       <div class="actions">
         <button id="yes" class="btn primary">Yes 💖</button>
         <button id="no" class="btn ghost">No 😭</button>
       </div>
-
-      <p id="micro" class="micro">Tap carefully.</p>
-    </section>
+    </div>
   </main>
 </body>
 </html>

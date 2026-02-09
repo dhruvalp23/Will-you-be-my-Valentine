@@ -1,5 +1,5 @@
 // Change this password (no spaces at the ends)
-const SITE_PASSWORD = "SHEEN";
+const SITE_PASSWORD = "sheen";
 
 const lock = document.getElementById("lock");
 const app = document.getElementById("app");
